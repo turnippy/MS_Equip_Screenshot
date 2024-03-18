@@ -15,17 +15,28 @@ import mss
 import cv2
 import numpy
 
+from win32gui import FindWindow, GetWindowRect
 from pynput import mouse
 from time import sleep
 
 
-def get_coords():
-    return
+def get_MS_xy():
+    coords = []
+    return coords
+
+
+def screenshot(xy=None):
+    if not xy:
+        raise ValueError("Invalid coordinates passed to screenshot.")
+    with mss.mss() as sct:
+        pass
+
 
 
 def main(out_dir=None):
+
     if not out_dir:
-        print("invalid output directory")
+        input("Invalid output directory.\nPress any key to exit...")
         return
     out_path = os.path.join(os.getcwd(), out_dir)
     try:
@@ -33,7 +44,11 @@ def main(out_dir=None):
     except FileExistsError:
         pass
     print("Saving output to", out_path)
-    get_coords()
+
+    ms_coords = get_MS_xy()
+    if not ms_coords:
+        input("MS Window not found.\nPress any key to exit...")
+        return
 
     input("Press any key to exit...")
     return
