@@ -97,7 +97,7 @@ def take_screenshots(outpath, ms_coords, anchor_loc):
     for i in [1, 2, 3]:
         m.position = curr
         sleep(0.25)
-        img = screenshot(rect=ms_coords, fn=os.path.join(outpath, f'totem{i}.png'))
+        img = screenshot(rect=ms_coords, fn=os.path.join(outpath, f"totem{i}.png"))
         curr[1] += ITEM_SLOT_OFFSET
         print(f"\tTotem {i} done")
 
@@ -111,9 +111,11 @@ def take_screenshots(outpath, ms_coords, anchor_loc):
             if item:
                 m.position = curr
                 sleep(0.25)
-                img = screenshot(rect=ms_coords, fn=os.path.join(outpath, f'{item}.png'))
+                img = screenshot(rect=ms_coords, fn=os.path.join(outpath, f"{item}.png"))
+                print(f"\t{item} done")
             curr[1] += ITEM_SLOT_OFFSET  # Move down column
-        curr[0] += ITEM_SLOT_OFFSET  # Move to next column
+        curr[0] += ITEM_SLOT_OFFSET  # Move to next column, start at top
+        curr[1] = copy.deepcopy(anchor_loc[1]) + ANCHOR_ITEM_OFFSET[1]
 
 
 def main(out_dir=None):
