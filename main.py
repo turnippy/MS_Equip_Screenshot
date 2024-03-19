@@ -53,7 +53,8 @@ def get_anchor(img_in):
     correlation is calculated using CCOEFF_NORMED
     """
     img_gray = cv2.cvtColor(img_in, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(os.path.join(os.getcwd(), 'resources/equip_window_anchor.png'), cv2.IMREAD_GRAYSCALE)
+    template = cv2.imread(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                       'resources/equip_window_anchor.png'), cv2.IMREAD_GRAYSCALE)
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     # look for local max (threshold > 0.75) when using CCOEFF_NORMED
 
@@ -121,7 +122,7 @@ def main(out_dir=None):
     if not out_dir:
         input("Invalid output directory.\nPress any key to exit...")
         return
-    out_path = os.path.join(os.getcwd(), out_dir)
+    out_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), out_dir)
     try:
         os.mkdir(out_path)
     except FileExistsError:
@@ -133,7 +134,7 @@ def main(out_dir=None):
 
     anchor_left, anchor_top = get_anchor(ms_img)
     anchor_coords_abs = [(anchor_left + ms_coords['left']), (anchor_top + ms_coords['top'])]
-    
+
     take_screenshots(out_path, ms_coords, anchor_coords_abs)
 
     input("Completed! Press any key to exit...")
