@@ -6,7 +6,6 @@ This script does:
     1. Find coord on screen of Maplestory.exe.
     2. Find coord of anchor (equip inventory).
     3. Using hard-coded relative position to anchor, mouse over and print screen.
-    4.
 """
 import copy
 import sys
@@ -97,7 +96,7 @@ def take_screenshots(outpath, ms_coords, anchor_loc):
     for i in [1, 2, 3]:
         m.position = curr
         sleep(0.25)
-        img = screenshot(rect=ms_coords, fn=os.path.join(outpath, f"totem{i}.png"))
+        screenshot(rect=ms_coords, fn=os.path.join(outpath, f"totem{i}.png"))
         curr[1] += ITEM_SLOT_OFFSET
         print(f"\tTotem {i} done")
 
@@ -111,11 +110,11 @@ def take_screenshots(outpath, ms_coords, anchor_loc):
             if item:
                 m.position = curr
                 sleep(0.25)
-                img = screenshot(rect=ms_coords, fn=os.path.join(outpath, f"{item}.png"))
+                screenshot(rect=ms_coords, fn=os.path.join(outpath, f"{item}.png"))
                 print(f"\t{item} done")
             curr[1] += ITEM_SLOT_OFFSET  # Move down column
         curr[0] += ITEM_SLOT_OFFSET  # Move to next column, start at top
-        curr[1] = copy.deepcopy(anchor_loc[1]) + ANCHOR_ITEM_OFFSET[1]
+        curr[1] = anchor_loc[1] + ANCHOR_ITEM_OFFSET[1]
 
 
 def main(out_dir=None):
@@ -134,7 +133,7 @@ def main(out_dir=None):
 
     anchor_left, anchor_top = get_anchor(ms_img)
     anchor_coords_abs = [(anchor_left + ms_coords['left']), (anchor_top + ms_coords['top'])]
-
+    
     take_screenshots(out_path, ms_coords, anchor_coords_abs)
 
     input("Completed! Press any key to exit...")
