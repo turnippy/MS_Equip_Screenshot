@@ -1,4 +1,5 @@
 .idea/
+.git/
 test*
 test/
 scttest.py
